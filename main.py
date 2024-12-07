@@ -19,6 +19,15 @@ class Character:
         self.pos = pos
         self.gfx = pygame.image.load(gfx_path)
         self.gfx = pygame.transform.smoothscale(self.gfx, (100, 100))
+        # Add alpha channel to gfx
+        self.gfx = self.gfx.convert_alpha()
+        # Make white (up to threshold) to transparent
+        for x in range(self.gfx.get_width()):
+            for y in range(self.gfx.get_height()):
+                color = self.gfx.get_at((x, y))
+                if color[0] > 200 and color[1] > 200 and color[2] > 200:
+                    color = (255, 255, 255, 0)
+                self.gfx.set_at((x, y), color)
 
     def handle_keys(self, keys):
         if keys[pygame.K_UP]:
