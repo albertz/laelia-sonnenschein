@@ -61,12 +61,33 @@ class Character:
             pygame.draw.circle(screen, "gray", edge_pos, 5)
 
 
+class Area:
+    def __init__(self, name: str, pos: pygame.Vector2, size: pygame.Vector2, color: str):
+        self.name = name
+        self.pos = pos
+        self.size = size
+        self.color = color
+
+    def draw(self):
+        # fill rect
+        pygame.draw.rect(screen, self.color, pygame.Rect(self.pos, self.size))
+
+
 players = [
     Character("Player", pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2), "assets/mouse2.jpeg"),
     Character("AI1", pygame.Vector2(100, 100), "assets/mouse3.jpeg"),
     Character("AI2", pygame.Vector2(200, 200), "assets/mouse4.jpeg"),
     Character("AI3", pygame.Vector2(300, 300), "assets/elephant1.jpeg"),
     Character("AI4", pygame.Vector2(500, 100), "assets/duck1.jpeg"),
+]
+areas = [
+    Area("sky", pygame.Vector2(0, 0), pygame.Vector2(screen.get_width(), screen.get_height() / 2), "skyblue"),
+    Area(
+        "ground",
+        pygame.Vector2(0, screen.get_height() / 2),
+        pygame.Vector2(screen.get_width(), screen.get_height() / 2),
+        "gray",
+    ),
 ]
 
 
@@ -88,6 +109,8 @@ while running:
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("white")
 
+    for area in areas:
+        area.draw()
     for player in players:
         player.draw()
 
