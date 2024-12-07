@@ -61,10 +61,8 @@ class Character:
             pygame.draw.circle(screen, "gray", edge_pos, 5)
 
 
-player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
-
 players = [
-    Character("Player", player_pos, "assets/mouse2.jpeg"),
+    Character("Player", pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2), "assets/mouse2.jpeg"),
     Character("AI1", pygame.Vector2(100, 100), "assets/mouse3.jpeg"),
     Character("AI2", pygame.Vector2(200, 200), "assets/mouse4.jpeg"),
     Character("AI3", pygame.Vector2(300, 300), "assets/elephant1.jpeg"),
