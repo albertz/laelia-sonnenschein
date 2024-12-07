@@ -88,6 +88,7 @@ players = [
     Character("AI2", pygame.Vector2(200, 200), "assets/mouse4.jpeg"),
     Character("AI3", pygame.Vector2(300, 300), "assets/elephant1.jpeg"),
     Character("AI4", pygame.Vector2(500, 100), "assets/duck1.jpeg"),
+    Character("AI5", pygame.Vector2(600, 200), "assets/dragon1.jpeg"),
 ]
 areas = [
     Area("sky", pygame.Vector2(0, 0), pygame.Vector2(screen.get_width(), screen.get_height() / 2), "skyblue"),
