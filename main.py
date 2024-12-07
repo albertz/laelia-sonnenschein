@@ -63,11 +63,13 @@ class Character:
 
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 
-human_player = Character("Player", player_pos, "assets/mouse2.jpeg")
-ai_player_mouse_yellow_small = Character("AI1", pygame.Vector2(100, 100), "assets/mouse3.jpeg")
-ai_player_mouse_yellow_big = Character("AI2", pygame.Vector2(200, 200), "assets/mouse4.jpeg")
-ai_player_elephant = Character("AI3", pygame.Vector2(300, 300), "assets/elephant1.jpeg")
-players = [human_player, ai_player_mouse_yellow_small, ai_player_mouse_yellow_big, ai_player_elephant]
+players = [
+    Character("Player", player_pos, "assets/mouse2.jpeg"),
+    Character("AI1", pygame.Vector2(100, 100), "assets/mouse3.jpeg"),
+    Character("AI2", pygame.Vector2(200, 200), "assets/mouse4.jpeg"),
+    Character("AI3", pygame.Vector2(300, 300), "assets/elephant1.jpeg"),
+    Character("AI4", pygame.Vector2(500, 100), "assets/duck1.jpeg"),
+]
 
 
 while running:
@@ -80,11 +82,10 @@ while running:
     keys = pygame.key.get_pressed()
     # human_player.handle_keys(keys)
 
-    ai_player_mouse_yellow_big.handle_ai_move_towards(ai_player_mouse_yellow_small.pos)
-    human_player.handle_ai_move_towards(ai_player_mouse_yellow_big.pos)
-    ai_player_mouse_yellow_small.handle_ai_move_towards(ai_player_elephant.pos)
+    players[0].handle_keys(keys)
 
-    ai_player_elephant.handle_keys(keys)
+    for i in range(1, len(players)):
+        players[i].handle_ai_move_towards(players[i - 1].pos)
 
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("white")
