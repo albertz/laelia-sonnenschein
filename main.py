@@ -83,12 +83,13 @@ class Area:
 
 
 players = [
-    Character("Player", pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2), "assets/mouse2.jpeg"),
-    Character("AI1", pygame.Vector2(100, 100), "assets/mouse3.jpeg"),
-    Character("AI2", pygame.Vector2(200, 200), "assets/mouse4.jpeg"),
+    Character("Girl", pygame.Vector2(100, 300), "assets/girl1.jpeg"),
+    Character("Yellow mouse", pygame.Vector2(100, 100), "assets/mouse3.jpeg"),
     Character("Elephant", pygame.Vector2(300, 300), "assets/elephant1.jpeg"),
-    Character("AI4", pygame.Vector2(500, 100), "assets/duck1.jpeg"),
-    Character("Dragon", pygame.Vector2(600, 200), "assets/dragon1.jpeg"),
+    Character("Fat mouse", pygame.Vector2(200, 200), "assets/mouse4.jpeg"),
+    Character("Med mouse", pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2), "assets/mouse2.jpeg"),
+    Character("Duck", pygame.Vector2(500, 100), "assets/duck1.jpeg"),
+    # Character("Dragon", pygame.Vector2(600, 200), "assets/dragon1.jpeg"),
 ]
 areas = [
     Area("sky", pygame.Vector2(0, 0), pygame.Vector2(screen.get_width(), screen.get_height() / 2), "skyblue"),
@@ -115,8 +116,6 @@ while running:
 
     for i in range(1, len(players)):
         target_pos = players[i - 1].pos.copy()
-        if players[i].name == "Elephant":
-            target_pos.y += 100
         players[i].handle_ai_move_towards(target_pos)
 
     # fill the screen with a color to wipe away anything from last frame
