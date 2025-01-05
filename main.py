@@ -60,7 +60,7 @@ class Character:
         if (self.pos - santa.pos).length() < 100:
             santa.caught_dt += dt
             if santa.caught_dt > 1:
-                score.score += 1
+                game_score.score += 1
                 self.pos = get_random_position()
                 santa.reset()
 
@@ -214,7 +214,7 @@ class Score:
 
 
 font = pygame.font.Font(None, 36)
-score = Score()
+game_score = Score()
 
 
 while running:
@@ -249,7 +249,7 @@ while running:
     sun.draw()
     santa.draw()
     snow.draw()
-    score.draw()
+    game_score.draw()
 
     # flip() the display to put your work on screen
     pygame.display.flip()
