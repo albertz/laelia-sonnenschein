@@ -4,6 +4,7 @@ Sonnenschein
 
 import pygame
 import random
+import math
 
 # pygame setup
 pygame.init()
@@ -132,6 +133,29 @@ class Snow:
 snow = Snow()
 
 
+class Sun:
+    def __init__(self):
+        self.pos = pygame.Vector2(screen.get_width() * 0.8, screen.get_height() * 0.2)
+        self.size = 50
+        self.color = "yellow"
+
+    def draw(self):
+        pygame.draw.circle(screen, self.color, self.pos, self.size)
+        # Stripes
+        n = 12
+        for i in range(n):
+            angle = i / n * 2 * math.pi
+            pygame.draw.line(
+                screen,
+                "yellow",
+                self.pos,
+                self.pos + pygame.Vector2(math.cos(angle), math.sin(angle)) * self.size * 2,
+            )
+
+
+sun = Sun()
+
+
 while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
@@ -159,6 +183,7 @@ while running:
         player.draw()
 
     snow.draw()
+    sun.draw()
 
     # flip() the display to put your work on screen
     pygame.display.flip()
