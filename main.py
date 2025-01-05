@@ -15,11 +15,13 @@ dt = 0
 
 
 class Character:
+    Size = 100
+
     def __init__(self, name, pos: pygame.Vector2, gfx_path: str):
         self.name = name
         self.pos = pos
         self.gfx = pygame.image.load(gfx_path)
-        self.gfx = pygame.transform.smoothscale(self.gfx, (100, 100))
+        self.gfx = pygame.transform.smoothscale(self.gfx, (self.Size, self.Size))
         # Add alpha channel to gfx
         self.gfx = self.gfx.convert_alpha()
         # Make white (up to threshold) to transparent
@@ -156,6 +158,29 @@ class Sun:
 sun = Sun()
 
 
+class SantaClaus(Character):
+    Size = 200
+
+    def __init__(self):
+        super().__init__(
+            "Santa Claus",
+            pygame.Vector2(screen.get_width() * 0.7, screen.get_height() * 0.25),
+            "assets/santaClaus.jpeg",
+        )
+        angle = random.random() * math.pi * 2
+        self.direction = pygame.Vector2(math.cos(angle), math.sin(angle))
+
+    def update(self):
+        self.move(self.direction.x * 100 * dt, self.direction.y * 100 * dt)
+        if self.pos.x < 0 or self.pos.x > screen.get_width():
+            self.direction.x *= -1
+        if self.pos.y < 0 or self.pos.y > screen.get_height():
+            self.direction.y *= -1
+
+
+santa = SantaClaus()
+
+
 while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
@@ -173,6 +198,7 @@ while running:
         players[i].handle_ai_move_towards(target_pos)
 
     snow.update()
+    santa.update()
 
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("white")
@@ -182,8 +208,9 @@ while running:
     for player in players:
         player.draw()
 
-    snow.draw()
     sun.draw()
+    santa.draw()
+    snow.draw()
 
     # flip() the display to put your work on screen
     pygame.display.flip()
