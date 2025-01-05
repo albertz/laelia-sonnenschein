@@ -54,6 +54,12 @@ class Character:
         self.pos.x += x
         self.pos.y += y
 
+    def update_player(self):
+        if (self.pos - santa.pos).length() < 100:
+            score.score += 1
+            self.pos = get_random_position()
+            santa.reset()
+
     def draw(self):
         # Draw gfx
         screen.blit(self.gfx, self.pos - pygame.Vector2(self.gfx.get_width() / 2, self.gfx.get_height() / 2))
@@ -170,6 +176,11 @@ class SantaClaus(Character):
         angle = random.random() * math.pi * 2
         self.direction = pygame.Vector2(math.cos(angle), math.sin(angle))
 
+    def reset(self):
+        self.pos = pygame.Vector2(random.random() * screen.get_width(), random.random() * screen.get_height() * 0.5)
+        angle = random.random() * math.pi * 2
+        self.direction = pygame.Vector2(math.cos(angle), math.sin(angle))
+
     def update(self):
         self.move(self.direction.x * 100 * dt, self.direction.y * 100 * dt)
         if self.pos.x < 0 or self.pos.x > screen.get_width():
@@ -179,6 +190,19 @@ class SantaClaus(Character):
 
 
 santa = SantaClaus()
+
+
+class Score:
+    def __init__(self):
+        self.score = 0
+
+    def draw(self):
+        font = pygame.font.Font(None, 36)
+        text = font.render(f"Score: {self.score}", True, "black")
+        screen.blit(text, (10, 10))
+
+
+score = Score()
 
 
 while running:
@@ -197,6 +221,8 @@ while running:
         target_pos = players[i - 1].pos.copy()
         players[i].handle_ai_move_towards(target_pos)
 
+    players[0].update_player()
+
     snow.update()
     santa.update()
 
@@ -211,6 +237,7 @@ while running:
     sun.draw()
     santa.draw()
     snow.draw()
+    score.draw()
 
     # flip() the display to put your work on screen
     pygame.display.flip()
