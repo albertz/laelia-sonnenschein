@@ -85,6 +85,7 @@ class Area:
 players = [
     Character("Girl", pygame.Vector2(100, 300), "assets/girl1.jpeg"),
     Character("Pippi Longstocking", pygame.Vector2(100, 200), "assets/pippi3.jpeg"),
+    Character("Mama", pygame.Vector2(100, 100), "assets/girl2.jpeg"),
     # Character("Yellow mouse", pygame.Vector2(100, 100), "assets/mouse3.jpeg"),
     # Character("Elephant", pygame.Vector2(300, 300), "assets/elephant1.jpeg"),
     # Character("Fat mouse", pygame.Vector2(200, 200), "assets/mouse4.jpeg"),
