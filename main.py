@@ -163,6 +163,7 @@ class Sun:
                 "yellow",
                 self.pos,
                 self.pos + pygame.Vector2(math.cos(angle), math.sin(angle)) * self.size * 2,
+                width=5,
             )
 
 
