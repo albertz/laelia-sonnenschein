@@ -21,7 +21,9 @@ class Character:
         self.name = name
         self.pos = pos
         self.gfx = pygame.image.load(gfx_path)
-        self.gfx = pygame.transform.smoothscale(self.gfx, (self.Size, self.Size))
+        w, h = self.gfx.get_width(), self.gfx.get_height()
+        long_side = max(w, h)
+        self.gfx = pygame.transform.smoothscale(self.gfx, (self.Size * w / long_side, self.Size * h / long_side))
         # Add alpha channel to gfx
         self.gfx = self.gfx.convert_alpha()
         # Make white (up to threshold) to transparent
@@ -97,6 +99,7 @@ players = [
     Character("Girl", pygame.Vector2(100, 300), "assets/girl1.jpeg"),
     Character("Pippi Longstocking", pygame.Vector2(100, 200), "assets/pippi3.jpeg"),
     Character("Mama", pygame.Vector2(100, 100), "assets/girl2.jpeg"),
+    Character("Girls", pygame.Vector2(200, 200), "assets/girls.jpeg"),
     # Character("Yellow mouse", pygame.Vector2(100, 100), "assets/mouse3.jpeg"),
     # Character("Elephant", pygame.Vector2(300, 300), "assets/elephant1.jpeg"),
     # Character("Fat mouse", pygame.Vector2(200, 200), "assets/mouse4.jpeg"),
@@ -206,11 +209,11 @@ class Score:
         self.score = 0
 
     def draw(self):
-        font = pygame.font.Font(None, 36)
         text = font.render(f"Score: {self.score}", True, "black")
         screen.blit(text, (10, 10))
 
 
+font = pygame.font.Font(None, 36)
 score = Score()
 
 
