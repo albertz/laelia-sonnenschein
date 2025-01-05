@@ -2,8 +2,8 @@
 Sonnenschein
 """
 
-# Example file showing a circle moving on screen
 import pygame
+import random
 
 # pygame setup
 pygame.init()
@@ -105,6 +105,33 @@ areas = [
 ]
 
 
+def get_random_position():
+    x = random.randint(0, screen.get_width())
+    y = random.randint(0, screen.get_height())
+    return pygame.Vector2(x, y)
+
+
+class Snow:
+    def __init__(self, *, num: int = 100):
+        self.positions = [get_random_position() for _ in range(num)]
+        self.size = 5
+        self.color = "white"
+
+    def draw(self):
+        for pos in self.positions:
+            pygame.draw.circle(screen, self.color, pos, self.size)
+
+    def update(self):
+        for i in range(len(self.positions)):
+            self.positions[i].y += 1
+            if self.positions[i].y > screen.get_height():
+                self.positions[i].x = random.randint(0, screen.get_width())
+                self.positions[i].y = 0
+
+
+snow = Snow()
+
+
 while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
@@ -121,6 +148,8 @@ while running:
         target_pos = players[i - 1].pos.copy()
         players[i].handle_ai_move_towards(target_pos)
 
+    snow.update()
+
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("white")
 
@@ -128,6 +157,8 @@ while running:
         area.draw()
     for player in players:
         player.draw()
+
+    snow.draw()
 
     # flip() the display to put your work on screen
     pygame.display.flip()
