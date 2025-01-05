@@ -56,9 +56,11 @@ class Character:
 
     def update_player(self):
         if (self.pos - santa.pos).length() < 100:
-            score.score += 1
-            self.pos = get_random_position()
-            santa.reset()
+            santa.caught_dt += dt
+            if santa.caught_dt > 1:
+                score.score += 1
+                self.pos = get_random_position()
+                santa.reset()
 
     def draw(self):
         # Draw gfx
@@ -175,11 +177,13 @@ class SantaClaus(Character):
         )
         angle = random.random() * math.pi * 2
         self.direction = pygame.Vector2(math.cos(angle), math.sin(angle))
+        self.caught_dt = 0.0
 
     def reset(self):
         self.pos = pygame.Vector2(random.random() * screen.get_width(), random.random() * screen.get_height() * 0.5)
         angle = random.random() * math.pi * 2
         self.direction = pygame.Vector2(math.cos(angle), math.sin(angle))
+        self.caught_dt = 0.0
 
     def update(self):
         self.move(self.direction.x * 100 * dt, self.direction.y * 100 * dt)
@@ -187,6 +191,11 @@ class SantaClaus(Character):
             self.direction.x *= -1
         if self.pos.y < 0 or self.pos.y > screen.get_height():
             self.direction.y *= -1
+
+    def draw(self):
+        super().draw()
+        if self.caught_dt > 0:
+            pygame.draw.circle(screen, "red", self.pos, self.caught_dt * 100, width=10)
 
 
 santa = SantaClaus()
