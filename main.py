@@ -244,11 +244,13 @@ while running:
 
     for area in areas:
         area.draw()
+    sun.draw()
+
+    santa.draw()
+
     for player in players:
         player.draw()
 
-    sun.draw()
-    santa.draw()
     snow.draw()
     game_score.draw()
 
